@@ -1,20 +1,11 @@
 import React from "react";
-import { ListGroup, Button, Form } from "react-bootstrap";
+import { ListGroup, Button } from "react-bootstrap";
 
-const TodoItem = ({ task, toggleComplete, deleteTask, startEdit }) => {
+const TodoItem = ({ task, deleteTask, startEdit }) => {
   return (
-    <ListGroup.Item className="d-flex align-items-center">
-      <Form.Check
-        type="checkbox"
-        checked={task.completed}
-        onChange={() => toggleComplete(task.id)}
-        label={
-          <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
-            {task.text}
-          </span>
-        }
-      />
-      <div className="ms-auto">
+    <ListGroup.Item className="d-flex align-items-center justify-content-between">
+      <span>{task.text}</span>
+      <div>
         <Button
           size="sm"
           variant="warning"
