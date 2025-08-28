@@ -5,8 +5,7 @@ const TodoFormModal = ({ addTask, editTask, taskToEdit, onClose }) => {
   const [text, setText] = useState(taskToEdit ? taskToEdit.text : "");
 
   useEffect(() => {
-    if (taskToEdit) setText(taskToEdit.text);
-    else setText("");
+    setText(taskToEdit ? taskToEdit.text : "");
   }, [taskToEdit]);
 
   const handleSubmit = (e) => {
@@ -14,16 +13,18 @@ const TodoFormModal = ({ addTask, editTask, taskToEdit, onClose }) => {
 
     const pattern = /^[a-zA-Z0-9 _-]+$/;
     if (!text.trim()) return alert("Task cannot be empty");
-    if (!pattern.test(text)) return alert("Invalid characters!");
+    if (!pattern.test(text)) return alert("Invalid characters! (Allowed: letters, numbers, space, _ and -)");
 
     if (taskToEdit) {
+      // Requirement: confirmation before update
+      if (!window.confirm("Are you sure you want to update this task?")) return;
       editTask({ ...taskToEdit, text });
     } else {
       addTask(text);
     }
 
     setText("");
-    onClose(); // close modal after submit
+    onClose();
   };
 
   return (

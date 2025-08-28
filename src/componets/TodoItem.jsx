@@ -15,8 +15,21 @@ const TodoItem = ({ task, toggleComplete, deleteTask, startEdit }) => {
         }
       />
       <div className="ms-auto">
-        <Button size="sm" variant="warning" className="me-2" onClick={() => startEdit(task)}>Edit</Button>
-        <Button size="sm" variant="danger" onClick={() => deleteTask(task.id)}>Delete</Button>
+        <Button
+          size="sm"
+          variant="warning"
+          className="me-2"
+          onClick={() => startEdit(task)}
+        >
+          Edit
+        </Button>
+        <Button
+          size="sm"
+          variant="danger"
+          onClick={() => deleteTask(task.id)}
+        >
+          Delete
+        </Button>
       </div>
     </ListGroup.Item>
   );
