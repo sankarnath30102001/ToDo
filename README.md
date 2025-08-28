@@ -1,56 +1,37 @@
-# 📝 Todo Task List
+# 📝 Todo App
 
-This repository contains a **Todo Task List** web application built with **React (Create React App)** as part of an assignment.  
-It supports add / edit / delete tasks, marking tasks complete, input validation, confirmation dialogs, responsive UI, and persistence using **localStorage**. Docker setup for development (hot reloading) and production is included.
-
----
-
-## 🚀 Overview / Assignment Requirements
-
-This project implements the following functionality required by the assignment:
-
-- Create, read, update, delete (CRUD) tasks
-- Mark tasks as completed (toggle + visual distinction)
-- Persist tasks in browser Local Storage (`id`, `text`, `completed`, `updatedAt`)
-- Input validation: only letters, numbers, spaces, `_` and `-` (regex)
-- Confirmation dialogs on update & delete
-- Responsive layout
-- Docker development setup with hot reloading
+**React Todo Application** built with **Bootstrap** & **React-Bootstrap** for styling.  
+Supports **adding, editing, deleting, and persisting todos** using browser **localStorage**.
 
 ---
 
-## 📋 Prerequisites
+## 🚀 Features
 
-Install the following before proceeding:
-
-- Node.js (v16+ recommended) — [Download here](https://nodejs.org/)
-- npm (comes with Node.js) or yarn
-- Git (optional, for cloning)
-- Docker Desktop (for Docker workflows) — [Download here](https://www.docker.com/products/docker-desktop)
-  - On Windows: WSL2 integration is recommended for best experience
+- ➕ Add new todos via a modal form  
+- ✏️ Edit existing todos in the same modal  
+- ❌ Delete todos with a single click  
+- 💾 Persist todos in **localStorage** (data stays after refresh)  
+- 📱 Responsive UI with **Bootstrap** styling  
 
 ---
 
-## 🧭 Project Structure
+## 📂 Project Structure
+
 todo-app/
-├─ public/
-│ └─ index.html
 ├─ src/
 │ ├─ components/
-│ │ ├─ TodoForm.jsx
-│ │ ├─ TodoItem.jsx
-│ │ └─ TodoList.jsx
-│ ├─ App.js
-│ ├─ App.css
-│ └─ index.js
-├─ Dockerfile.dev
-├─ Dockerfile.prod
-├─ docker-compose.yml
+│ │ ├─ TodoFormModal.jsx # Modal for adding/editing todos
+│ │ ├─ TodoItem.jsx # Single todo item
+│ │ └─ TodoList.jsx # List of todos
+│ ├─ App.js # Main app component
+│ ├─ App.css # Custom styles
+│ └─ index.js # Entry point
 ├─ package.json
 └─ README.md
 
-
 ---
+
+
 
 ## ⚙️ Run Locally (without Docker)
 
@@ -70,21 +51,19 @@ todo-app/
 
 5. Open your browser at:
    http://localhost:3000
+
    
  ---
+ 
+## 📜 NPM Scripts
 
-## ⚙️ NPM scripts
+1. npm start → Start dev server
 
-1. Start dev server:
-   npm start
+2. npm run build → Build production bundle in /build
 
-2. Build production bundle into /build:
-   npm run build
+3. npm test → Run tests (if configured)
 
-3. Run tests (if configured):
-   npm test
 
----
 
 ## 🔐 Environment Variables / Configuration
 
@@ -141,7 +120,16 @@ Use docker-compose to run the app in a container with hot reloading.
 
 ---
 
+## 📦 Dependencies
+
+⚛️ React (v18.2.0)
+🎨 Bootstrap (v5)
+🖼 React-Bootstrap (v2)
+
+---
+
 ## 📜 License & Author
+
 Author: Sankarnath M
 📧 sankarnath30102001@gmail.com
 

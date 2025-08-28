@@ -1,20 +1,23 @@
 import React from "react";
 import TodoItem from "./TodoItem";
+import { ListGroup } from "react-bootstrap";
 
 const TodoList = ({ tasks, toggleComplete, deleteTask, startEdit }) => {
-    return (
-        <ul className="todo-list">
-            {tasks.map((task) => (
-                <TodoItem
-                    key={task.id}
-                    task={task}
-                    toggleComplete={toggleComplete}
-                    deleteTask={deleteTask}
-                    startEdit={startEdit}
-                />
-            ))}
-        </ul>
-    );
+  if (tasks.length === 0) return <p className="text-center">No tasks available.</p>;
+
+  return (
+    <ListGroup>
+      {tasks.map((task) => (
+        <TodoItem
+          key={task.id}
+          task={task}
+          toggleComplete={toggleComplete}
+          deleteTask={deleteTask}
+          startEdit={startEdit}
+        />
+      ))}
+    </ListGroup>
+  );
 };
 
 export default TodoList;

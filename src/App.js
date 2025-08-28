@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import TodoForm from "./componets/TodoForm";
+import TodoFormModal from "./componets/TodoFormModal";
 import TodoList from "./componets/TodoList";
+import { Container, Button } from "react-bootstrap";
 import "./App.css";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
 
   // Load tasks from localStorage
@@ -13,51 +15,67 @@ function App() {
     setTasks(storedTasks);
   }, []);
 
-  // Save tasks to localStorage
+  // Save tasks to localStorage whenever tasks change
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const addTask = (text) => {
-    setTasks([...tasks, { id: Date.now(), text, completed: false }]);
+  const handleAdd = (text) => {
+    const newTask = { id: Date.now(), text, completed: false };
+    setTasks([...tasks, newTask]);
+    setModalOpen(false);
   };
 
-  const editTask = (updatedTask) => {
-    setTasks(tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task)));
+  const handleEdit = (updatedTask) => {
+    const updatedTasks = tasks.map(t => t.id === updatedTask.id ? updatedTask : t);
+    setTasks(updatedTasks);
     setTaskToEdit(null);
+    setModalOpen(false);
   };
 
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      setTasks(tasks.filter(t => t.id !== id));
+    }
   };
 
-  const toggleComplete = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
+  const handleToggleComplete = (id) => {
+    setTasks(tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
   };
 
-  const startEdit = (task) => setTaskToEdit(task);
-  const cancelEdit = () => setTaskToEdit(null);
+  const openAddModal = () => {
+    setTaskToEdit(null);
+    setModalOpen(true);
+  };
+
+  const openEditModal = (task) => {
+    setTaskToEdit(task);
+    setModalOpen(true);
+  };
 
   return (
-    <div className="app">
-      <h1>React To-Do List</h1>
-      <TodoForm
-        addTask={addTask}
-        editTask={editTask}
-        taskToEdit={taskToEdit}
-        cancelEdit={cancelEdit}
-      />
+    <Container className="mt-4">
+      <h1 className="text-center mb-4"> Todo List</h1>
+      <div className="text-center mb-3">
+        <Button onClick={openAddModal}>Add Task</Button>
+      </div>
+
       <TodoList
         tasks={tasks}
-        toggleComplete={toggleComplete}
-        deleteTask={deleteTask}
-        startEdit={startEdit}
+        toggleComplete={handleToggleComplete}
+        deleteTask={handleDelete}
+        startEdit={openEditModal}
       />
-    </div>
+
+      {modalOpen && (
+        <TodoFormModal
+          onClose={() => setModalOpen(false)}
+          addTask={handleAdd}
+          editTask={handleEdit}
+          taskToEdit={taskToEdit}
+        />
+      )}
+    </Container>
   );
 }
 
